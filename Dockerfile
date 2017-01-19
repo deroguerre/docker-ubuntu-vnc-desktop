@@ -6,6 +6,7 @@ ENV HOME /home/ubuntu
 
 # built-in packages
 RUN apt-get update \
+    && apt-get install -y wget \
     && apt-get install -y --force-yes --no-install-recommends software-properties-common curl \
     && sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list" \
     && curl -SL http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key | sudo apt-key add - \
@@ -29,8 +30,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # firefox 45 installation
-RUN cd /home/ubuntu \
-    && wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
+RUN wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
     && tar -xjf firefox-45.0.tar.bz2 \
     && sudo rm -rf  /opt/firefox \
     && sudo mv firefox /opt/firefox45 \
