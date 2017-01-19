@@ -1,6 +1,8 @@
 Browthergui
 =========================
 
+v0.2
+
 Build Dockerfile
 ```
 docker build -t gui/browthergui .
