@@ -6,6 +6,11 @@ Build Dockerfile
 docker build -t gui/browthergui .
 ```
 
+Build yourself
+```
+git clone https://github.com/deroguerre/docker-ubuntu-vnc-desktop.git
+docker build --rm -t gui/browthergui docker-ubuntu-vnc-desktop
+
 Run
 ```
 docker run -d -i -t -p 6080:6080 --name browthergui_container gui/browthergui

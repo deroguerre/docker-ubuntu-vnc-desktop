@@ -43,7 +43,6 @@ ADD supervisord.conf /etc/supervisor/conf.d/
 ADD doro-lxde-wallpapers /usr/share/doro-lxde-wallpapers/
 ADD gtkrc-2.0 /home/ubuntu/.gtkrc-2.0
 
-WORKDIR /home/ubuntu
 # firefox 45 installation
 RUN wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
     && tar -xjf firefox-45.0.tar.bz2 \
@@ -51,7 +50,6 @@ RUN wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/fire
     && sudo mv firefox /opt/firefox45 \
     && sudo mv /usr/bin/firefox /usr/bin/firefoxold \
     && sudo ln -s /opt/firefox45/firefox /usr/bin/firefox \
-    && mkdir /home/ubuntu/testfolder
 
 EXPOSE 6080
 WORKDIR /root
