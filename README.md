@@ -8,7 +8,7 @@ docker build -t gui/browthergui .
 
 Run
 ```
-docker run -d -i -t -p 6080:6080 --name browthergui_container browthergui
+docker run -d -i -t -p 6080:6080 --name browthergui_container gui/browthergui
 ```
 
 Browse http://127.0.0.1:6080/vnc.html
