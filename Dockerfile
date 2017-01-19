@@ -24,9 +24,15 @@ RUN apt-get update \
         python-pip python-dev build-essential \
         mesa-utils libgl1-mesa-dri \
         gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine pinta arc-theme \
+    && rm -rf /var/lib/apt/lists/* \
+    && wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
+    && tar -xjf firefox-45.0.tar.bz2 \
+    && rm -rf  /opt/firefox \
+    && rm -rf /usr/bin/firefox \
+    && mv firefox /opt/firefox45 \
+    && ln -s /opt/firefox45/firefox /usr/bin/firefox
     && apt-get autoclean \
-    && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get autoremove
 
 ADD web /web/
 RUN pip install setuptools wheel && pip install -r /web/requirements.txt
@@ -42,14 +48,6 @@ ADD startup.sh /
 ADD supervisord.conf /etc/supervisor/conf.d/
 ADD doro-lxde-wallpapers /usr/share/doro-lxde-wallpapers/
 ADD gtkrc-2.0 /home/ubuntu/.gtkrc-2.0
-
-# firefox 45 installation
-RUN wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
-    && tar -xjf firefox-45.0.tar.bz2 \
-    && sudo rm -rf  /opt/firefox \
-    && sudo mv firefox /opt/firefox45 \
-    && sudo mv /usr/bin/firefox /usr/bin/firefoxold \
-    && sudo ln -s /opt/firefox45/firefox /usr/bin/firefox \
 
 EXPOSE 6080
 WORKDIR /root
