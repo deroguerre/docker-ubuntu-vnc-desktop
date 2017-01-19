@@ -13,7 +13,7 @@ docker build -t browthergui .
 
 Run
 ```
-docker run -d -i -t -p 6080:6080 -name browthergui dorowu/ubuntu-desktop-lxde-vnc
+docker run -d -i -t -p 6080:6080 --name browthergui dorowu/ubuntu-desktop-lxde-vnc
 ```
 
 Browse http://127.0.0.1:6080/vnc.html

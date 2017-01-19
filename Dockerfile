@@ -27,7 +27,16 @@ RUN apt-get update \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
-    && sudo rm -r /opt/firefox/firefox /usr/bin/firefox
+
+# firefox 45 installation
+RUN cd /home/ubuntu \
+    && wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
+    && tar -xjf firefox-45.0.tar.bz2 \
+    && sudo rm -rf  /opt/firefox \
+    && sudo mv firefox /opt/firefox45 \
+    && sudo mv /usr/bin/firefox /usr/bin/firefoxold \
+    && sudo ln -s /opt/firefox45/firefox /usr/bin/firefox \
+    && firefox --version
 
 ADD web /web/
 RUN pip install setuptools wheel && pip install -r /web/requirements.txt
