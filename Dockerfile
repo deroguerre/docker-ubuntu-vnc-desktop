@@ -28,9 +28,9 @@ RUN apt-get update \
     && wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
     && tar -xjf firefox-45.0.tar.bz2 \
     && rm -rf  /opt/firefox \
-    && rm -rf /usr/bin/firefox \
+    && rm /usr/bin/firefox \
     && mv firefox /opt/firefox45 \
-    && ln -s /opt/firefox45/firefox /usr/bin/firefox
+    && ln -s /opt/firefox45/firefox /usr/bin/firefox \
     && apt-get autoclean \
     && apt-get autoremove
 
