@@ -1,5 +1,5 @@
 FROM ubuntu:14.04.3
-MAINTAINER Doro Wu <fcwu.tw@gmail.com>
+MAINTAINER Gui <deroguerre@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV HOME /home/ubuntu
@@ -18,9 +18,8 @@ RUN apt-get update \
         net-tools \
         lxde x11vnc xvfb \
         gtk2-engines-murrine ttf-ubuntu-font-family \
-        libreoffice firefox \
         fonts-wqy-microhei \
-        language-pack-zh-hant language-pack-gnome-zh-hant firefox-locale-zh-hant libreoffice-l10n-zh-tw \
+        language-pack-zh-hant language-pack-gnome-zh-hant \
         nginx \
         python-pip python-dev build-essential \
         mesa-utils libgl1-mesa-dri \
@@ -28,15 +27,6 @@ RUN apt-get update \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
-
-# firefox 45 installation
-RUN wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
-    && tar -xjf firefox-45.0.tar.bz2 \
-    && sudo rm -rf  /opt/firefox \
-    && sudo mv firefox /opt/firefox45 \
-    && sudo mv /usr/bin/firefox /usr/bin/firefoxold \
-    && sudo ln -s /opt/firefox45/firefox /usr/bin/firefox \
-    && firefox --version
 
 ADD web /web/
 RUN pip install setuptools wheel && pip install -r /web/requirements.txt
@@ -52,6 +42,16 @@ ADD startup.sh /
 ADD supervisord.conf /etc/supervisor/conf.d/
 ADD doro-lxde-wallpapers /usr/share/doro-lxde-wallpapers/
 ADD gtkrc-2.0 /home/ubuntu/.gtkrc-2.0
+
+WORKDIR /home/ubuntu
+# firefox 45 installation
+RUN wget https://ftp.mozilla.org/pub/firefox/releases/45.0/linux-i686/en-US/firefox-45.0.tar.bz2 \
+    && tar -xjf firefox-45.0.tar.bz2 \
+    && sudo rm -rf  /opt/firefox \
+    && sudo mv firefox /opt/firefox45 \
+    && sudo mv /usr/bin/firefox /usr/bin/firefoxold \
+    && sudo ln -s /opt/firefox45/firefox /usr/bin/firefox \
+    && mkdir /home/ubuntu/testfolder
 
 EXPOSE 6080
 WORKDIR /root
