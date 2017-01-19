@@ -27,6 +27,7 @@ RUN apt-get update \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
+    && sudo rm -r /opt/firefox/firefox /usr/bin/firefox
 
 ADD web /web/
 RUN pip install setuptools wheel && pip install -r /web/requirements.txt
